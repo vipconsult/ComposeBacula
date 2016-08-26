@@ -1,0 +1,51 @@
+version: '2'
+services:
+ mysql:
+  image: mysql:5.7.14
+  container_name: mysql
+  hostname: mysql
+  ports:
+   - "3306:3306" 
+  volumes:
+   - /home/mysql:/var/lib/mysql
+  env_file:
+   - ./definitions.env
+
+ bacula:
+  build: bacula
+  container_name: bacula
+  hostname: bacula
+  ports:
+   - "9101:9101" # bconsole -> dir
+   - "9102:9102" # dir -> fd
+   - "9103:9103" # dir ->sd
+  volumes:
+   - /bacula:/bacula
+   - /etc/bacula:/etc/bacula
+  env_file:
+   - ./definitions.env
+  depends_on: 
+  - mysql     
+
+ bweb:
+  build: bweb
+  container_name: bweb
+  hostname: bweb
+  ports: 
+   - "80:9095"
+  volumes:
+  - /bacula:/bacula
+  - /etc/bacula/:/etc/bacula
+  env_file:
+   - ./definitions.env
+  depends_on:
+   - mysql
+
+ smtp:
+  image: vipconsult/smtp
+  container_name: smtp
+  hostname: smtp
+  ports: 
+   - "25:25"
+  env_file:
+- ./definitions.env
