@@ -12,7 +12,7 @@ services:
    - ./definitions.env
 
  bacula:
-  build: bacula
+  build: ../dockerfiles/bacula
   container_name: bacula
   hostname: bacula
   ports:
@@ -28,7 +28,7 @@ services:
   - mysql     
 
  bweb:
-  build: bweb
+  build: ../dockerfiles/bweb
   container_name: bweb
   hostname: bweb
   ports: 
