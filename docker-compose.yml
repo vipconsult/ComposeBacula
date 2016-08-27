@@ -22,6 +22,9 @@ services:
   volumes:
    - /bacula:/bacula
    - /etc/bacula:/etc/bacula
+   - ./bacula-dir.conf:/etc/bacula
+   - ./bacula-sd.conf:/etc/bacula
+   - ./bconsole.conf:/etc/bacula
   env_file:
    - ./definitions.env
   depends_on: 
