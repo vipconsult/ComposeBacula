@@ -17,14 +17,10 @@ services:
   hostname: bacula
   ports:
    - "9101:9101" # bconsole -> dir
-   - "9102:9102" # dir -> fd
    - "9103:9103" # dir ->sd
   volumes:
-   - /bacula:/bacula
-   - /etc/bacula:/etc/bacula
-   - ./bacula-dir.conf:/etc/bacula
-   - ./bacula-sd.conf:/etc/bacula
-   - ./bconsole.conf:/etc/bacula
+   - /home/bacula:/bacula
+   - ./conf:/tmp/conf
   env_file:
    - ./definitions.env
   depends_on: 
@@ -51,4 +47,4 @@ services:
   ports: 
    - "25:25"
   env_file:
-- ./definitions.env
+   - ./definitions.env
